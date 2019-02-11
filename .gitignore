@@ -1,0 +1,5 @@
+
+*.lock
+*.ide-wal
+.vs/MovieMania/v15/Server/sqlite3/storage.ide-shm
+*.ide

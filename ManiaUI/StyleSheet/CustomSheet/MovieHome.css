@@ -1,0 +1,13 @@
+﻿body {
+    background-color: aqua;
+}
+h1 {
+    text-align: center;
+    padding:10px 10px;
+}
+
+#imagePreview {
+    height: 170px;
+    width: auto; /*maintain aspect ratio*/
+    max-width: 500px;
+}
