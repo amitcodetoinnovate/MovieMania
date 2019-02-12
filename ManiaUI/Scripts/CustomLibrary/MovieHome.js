@@ -6,6 +6,48 @@ $(document).ready(function () {
     GetActors();
 });
 
+$('#btnActor-Producer').on('click', function () {
+    $.ajax({
+        url: "/MovieHandler.ashx",
+        type: "GET",
+        async: false,
+        dataType: "JSON",
+        data: {
+            type: 2
+        },
+        success: function (res) {
+            $("#tblFeedBack").html();
+            var feedBackData = "";
+            feedBackData += "<thead><th>Question</th><th>FeedBack</th></thead><tbody>";
+            if (res.Success == "True") {
+                if (res.BroadCastTable.length > 0) {
+                    for (var i = 0; i < res.BroadCastTable.length; i++) {
+                        feedBackData += "<option actorId =";
+                        feedBackData += res.Actors[i].Id + "</td>";
+                        feedBackData += "<td>" + res.BroadCastTable[i].DigitsPressed + "</td>";
+                        feedBackData += "</tr>";
+                    }
+                }
+            } else {
+                feedBackData += "<tr><td colspan='4'>No Reports</td></tr>";
+            }
+            feedBackData += "</tbody>";
+            $("#tblFeedBack").html(feedBackData);
+            $("#modalFeedBack").modal("show");
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                window.location.href = "/Login.aspx?message=Session expired";
+            } else if (jqXHR.status == 406) {
+                $("#modalPreviousSession").modal("show");
+            } else {
+                console.log(errorThrown);
+            }
+        }
+    });
+});
+
 function GetActors() {
     var broadCastId = $(this).attr("broadCastId");
    

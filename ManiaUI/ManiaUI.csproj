@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="MovieHome.aspx" />
     <Content Include="Scripts\CustomLibrary\MovieHome.js" />
     <Content Include="Scripts\ThirdParty-Library\jquery.js" />
@@ -79,6 +80,9 @@
   <ItemGroup>
     <Compile Include="Bussiness.cs" />
     <Compile Include="DataAccess.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="MovieHandler.ashx.cs">
       <DependentUpon>MovieHandler.ashx</DependentUpon>

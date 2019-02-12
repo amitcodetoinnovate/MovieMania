@@ -14,11 +14,8 @@ namespace ManiaUI
     /// </summary>
     public class MovieHandler : IHttpHandler
     {
-        SqlCommand _cmd;
-        SqlDataAdapter _da;
-        DataSet _ds;
-        private Utility utility = null;
-        private static string connectionToDb = ConfigurationManager.ConnectionStrings["MovieManiaDb"].ConnectionString;
+        
+        private string connectionToDb = ConfigurationManager.ConnectionStrings["AmitMovie"].ConnectionString;
 
         public void ProcessRequest(HttpContext context)
         {
@@ -35,7 +32,11 @@ namespace ManiaUI
                     case 1:
                         resJObj = GetActorsList(context);
                         context.Response.Write(resJObj);
-                        break;
+                        return;
+                    case 2:
+                        resJObj = GetProducersList(context);
+                        context.Response.Write(resJObj);
+                        return;
 
                 }
 
@@ -45,6 +46,21 @@ namespace ManiaUI
                 Console.WriteLine(ex.ToString());
 
             }
+        }
+
+        private JObject GetProducersList(HttpContext context)
+        {
+            JObject responseJObj = new JObject();
+            try
+            {
+                Bussiness bussiness = new Bussiness();
+                responseJObj = bussiness.GetProducersList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return responseJObj;
         }
 
         private JObject GetActorsList(HttpContext context)

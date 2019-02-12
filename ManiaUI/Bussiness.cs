@@ -14,6 +14,7 @@ namespace ManiaUI
         private Utility utility = null;
         internal JObject GetActorsList()
         {
+            utility = new Utility();
             try
             {
                 DataAccess dataAccess = new DataAccess(connection);
@@ -39,6 +40,30 @@ namespace ManiaUI
             utility = new Utility();
             utility.ResponseFormat = "json";
             utility.InitializeResponseVariables();
+        }
+
+        internal JObject GetProducersList()
+        {
+            utility = new Utility();
+            try
+            {
+                DataAccess dataAccess = new DataAccess(connection);
+                DataSet ds = dataAccess.GetProducersList();
+                if (ds == null)
+                {
+                    utility.CreateProperty("Success", "No data returned from database");
+                    utility.CreateProperty("Message", false);
+                }
+                else
+                {
+                    utility.ParseDataSet(ds);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Exception In Actors " + ex.ToString());
+            }
+            return utility.GetResponse();
         }
     }
 }
