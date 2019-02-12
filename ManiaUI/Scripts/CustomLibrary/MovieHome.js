@@ -25,7 +25,7 @@ function GetActors() {
                         feedBackData += "<option actorId =";
                         feedBackData +=  res.Actors[i].Id + "</td>";
                         feedBackData += "<td>" + res.BroadCastTable[i].DigitsPressed + "</td>";
-                        feedBackData += "</tr>";
+                        feedBackData += "</tr>"; 
                     }
                 }
             } else {

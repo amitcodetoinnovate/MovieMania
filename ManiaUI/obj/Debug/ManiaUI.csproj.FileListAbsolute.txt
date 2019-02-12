@@ -54,3 +54,7 @@ D:\Project\MovieMania\ManiaUI\obj\Debug\ManiaUI.csproj.CoreCompileInputs.cache
 D:\Project\MovieMania\ManiaUI\obj\Debug\ManiaUI.csproj.CopyComplete
 D:\Project\MovieMania\ManiaUI\obj\Debug\ManiaUI.dll
 D:\Project\MovieMania\ManiaUI\obj\Debug\ManiaUI.pdb
+D:\Project\MovieMania\master\ManiaUI\obj\Debug\ManiaUI.csprojAssemblyReference.cache
+D:\Project\MovieMania\master\ManiaUI\obj\Debug\ManiaUI.csproj.CoreCompileInputs.cache
+D:\Project\MovieMania\master\ManiaUI\obj\Debug\ManiaUI.dll
+D:\Project\MovieMania\master\ManiaUI\obj\Debug\ManiaUI.pdb
