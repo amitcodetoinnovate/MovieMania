@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,9 +14,8 @@ namespace ManiaUI
     /// </summary>
     public class MovieHandler : IHttpHandler
     {
-        SqlCommand _cmd;
-        SqlDataAdapter _da;
-        DataSet _ds;
+        
+        private string connectionToDb = ConfigurationManager.ConnectionStrings["AmitMovie"].ConnectionString;
 
         public void ProcessRequest(HttpContext context)
         {
@@ -32,48 +32,50 @@ namespace ManiaUI
                     case 1:
                         resJObj = GetActorsList(context);
                         context.Response.Write(resJObj);
-                        break;
+                        return;
+                    case 2:
+                        resJObj = GetProducersList(context);
+                        context.Response.Write(resJObj);
+                        return;
 
                 }
 
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.ToString());
+                Console.WriteLine(ex.ToString());
 
             }
         }
 
-        private JObject GetActorsList(HttpContext context)
+        private JObject GetProducersList(HttpContext context)
         {
-            _cmd = new SqlCommand();
-            _da = new SqlDataAdapter();
-            _ds = new DataSet();
+            JObject responseJObj = new JObject();
             try
             {
-                _cmd.CommandText = "TMremoveCategoryId";
-                _cmd.CommandType = CommandType.StoredProcedure;
-                _cmd.Connection = Connection;
-
-                _cmd.Parameters.Add("@TMremoveCategoryId", SqlDbType.Int).Value = TMremoveCategoryId;
-                _cmd.Parameters.Add("@Success", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                _cmd.Parameters.Add("@Message", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
-                Connection.Open();
-                _cmd.ExecuteNonQuery();
-                Connection.Close();
-                _ds.Tables.Add(_helper.ConvertOutputParametersToDataTable(_cmd.Parameters));
+                Bussiness bussiness = new Bussiness();
+                responseJObj = bussiness.GetProducersList();
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.ToString());
-                throw;
+                Console.WriteLine(ex.ToString());
             }
-            finally
+            return responseJObj;
+        }
+
+        private JObject GetActorsList(HttpContext context)
+        {
+            JObject responseJObj = new JObject();
+            try
             {
-                Connection.Close();
-                _cmd = null;
+                Bussiness bussiness = new Bussiness();
+                responseJObj = bussiness.GetActorsList();
             }
-            return _ds;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return responseJObj;
         }
 
         public bool IsReusable

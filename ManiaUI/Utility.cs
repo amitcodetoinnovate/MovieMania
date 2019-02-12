@@ -170,7 +170,7 @@ namespace ManiaUI
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.ToString());
+                Console.WriteLine(ex.ToString());
             }
             finally { }
         }
