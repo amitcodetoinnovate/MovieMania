@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace ManiaUI
         SqlCommand _cmd;
         SqlDataAdapter _da;
         DataSet _ds;
+        private Utility utility = null;
+        private static string connectionToDb = ConfigurationManager.ConnectionStrings["MovieManiaDb"].ConnectionString;
 
         public void ProcessRequest(HttpContext context)
         {
@@ -39,41 +42,24 @@ namespace ManiaUI
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.ToString());
+                Console.WriteLine(ex.ToString());
 
             }
         }
 
         private JObject GetActorsList(HttpContext context)
         {
-            _cmd = new SqlCommand();
-            _da = new SqlDataAdapter();
-            _ds = new DataSet();
+            JObject responseJObj = new JObject();
             try
             {
-                _cmd.CommandText = "TMremoveCategoryId";
-                _cmd.CommandType = CommandType.StoredProcedure;
-                _cmd.Connection = Connection;
-
-                _cmd.Parameters.Add("@TMremoveCategoryId", SqlDbType.Int).Value = TMremoveCategoryId;
-                _cmd.Parameters.Add("@Success", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                _cmd.Parameters.Add("@Message", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
-                Connection.Open();
-                _cmd.ExecuteNonQuery();
-                Connection.Close();
-                _ds.Tables.Add(_helper.ConvertOutputParametersToDataTable(_cmd.Parameters));
+                Bussiness bussiness = new Bussiness();
+                responseJObj = bussiness.GetActorsList();
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.ToString());
-                throw;
+                Console.WriteLine(ex.ToString());
             }
-            finally
-            {
-                Connection.Close();
-                _cmd = null;
-            }
-            return _ds;
+            return responseJObj;
         }
 
         public bool IsReusable

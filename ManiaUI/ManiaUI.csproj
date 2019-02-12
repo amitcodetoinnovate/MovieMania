@@ -72,10 +72,14 @@
   <ItemGroup>
     <Content Include="MovieHome.aspx" />
     <Content Include="Scripts\CustomLibrary\MovieHome.js" />
+    <Content Include="Scripts\ThirdParty-Library\jquery.js" />
     <Content Include="StyleSheet\CustomSheet\MovieHome.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bussiness.cs" />
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="MovieHandler.ashx.cs">
       <DependentUpon>MovieHandler.ashx</DependentUpon>
     </Compile>
@@ -99,9 +103,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\ThirdParty-Library\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,12 +1,14 @@
 ﻿var imagePath = "";
 
 
+
+$(document).ready(function () {
+    GetActors();
+});
+
 function GetActors() {
     var broadCastId = $(this).attr("broadCastId");
-    if ($(this).text() == 'No Call') {
-        //alert('Oops! it seems,like there no call');
-        return;
-    }
+   
     $.ajax({
         url: "/MovieHandler.ashx",
         type: "GET",

@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using Newtonsoft.Json.Linq;
+
+namespace ManiaUI
+{
+    internal class Bussiness
+    {
+        protected static readonly string  connection = ConfigurationManager.ConnectionStrings["AmitMovie"].ConnectionString;
+        private Utility utility = null;
+        internal JObject GetActorsList()
+        {
+            try
+            {
+                DataAccess dataAccess = new DataAccess(connection);
+                DataSet ds = dataAccess.GetActorsList();
+                if (ds == null)
+                {
+                    utility.CreateProperty("Success", "No data returned from database");
+                    utility.CreateProperty("Message", false);
+                }
+                else
+                {
+                    utility.ParseDataSet(ds);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Exception In Actors " + ex.ToString());
+            }
+            return utility.GetResponse();
+        }
+        internal Bussiness()
+        {
+            utility = new Utility();
+            utility.ResponseFormat = "json";
+            utility.InitializeResponseVariables();
+        }
+    }
+}
