@@ -37,6 +37,10 @@ namespace ManiaUI
                         resJObj = GetProducersList(context);
                         context.Response.Write(resJObj);
                         return;
+                    case 3:
+                        resJObj = InsertActorProducer(context);
+                        context.Response.Write(resJObj);
+                        return;
 
                 }
 
@@ -48,11 +52,32 @@ namespace ManiaUI
             }
         }
 
+        private JObject InsertActorProducer(HttpContext context)
+        {
+            JObject responseJObj = new JObject();
+            try
+            {
+                int actProFlag = Convert.ToInt32(context.Request["actProFlag"]);
+                String name = context.Request["name"];
+                String bioGraphy = context.Request["bioGraphy"];
+                String dateOfBirth = context.Request["dateOfBirth"];
+                int sex = Convert.ToInt32(context.Request["sex"]);
+                Bussiness bussiness = new Bussiness();
+                responseJObj = bussiness.InsertActorProducer(actProFlag, name, bioGraphy, dateOfBirth, sex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return responseJObj;
+        }
+
         private JObject GetProducersList(HttpContext context)
         {
             JObject responseJObj = new JObject();
             try
             {
+                
                 Bussiness bussiness = new Bussiness();
                 responseJObj = bussiness.GetProducersList();
             }

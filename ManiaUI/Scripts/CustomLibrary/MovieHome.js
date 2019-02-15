@@ -1,5 +1,5 @@
 ﻿var imagePath = "";
-
+var actProFlag;
 
 
 $(document).ready(function () {
@@ -28,7 +28,7 @@ $('#btnActor-Producer').on('click', function () {
         async: false,
         dataType: "JSON",
         data: {
-            type: 2,name: name,sex: sex,dateOfBirth: dateOfBirth, bioGraphy:bioGraphy
+            type: 3, name: name, sex: sex, dateOfBirth: dateOfBirth, bioGraphy: bioGraphy, actProFlag:actProFlag
         },
         success: function (res) {
             if (res.Success == "True") {
@@ -41,6 +41,12 @@ $('#btnActor-Producer').on('click', function () {
                 console.log(errorThrown);
         }
     });
+});
+$('#btnActor').on('click', function () { 
+    actProFlag = 0;
+});
+$('#btnProducer').on('click', function () {
+    actProFlag = 1;
 });
 
 function GetActors() {

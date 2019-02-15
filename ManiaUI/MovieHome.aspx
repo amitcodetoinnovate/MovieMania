@@ -18,8 +18,8 @@
     <p>
         <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add New Movie
         </a>
-        <button type="button" class="btn btn-warning float-sm-right" data-toggle="modal" data-target="#exampleModalCenter">Add New Actor</button>
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Add New Producer</button>
+        <button type="button" id="btnActor" class="btn btn-warning float-sm-right" data-toggle="modal" data-target="#exampleModalCenter">Add New Actor</button>
+        <button type="button" id="btnProducer" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Add New Producer</button>
     </p>
     <div class="collapse w-25 p-3 bg-warning" id="collapseExample">
         <form>

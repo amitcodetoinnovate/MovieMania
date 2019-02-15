@@ -65,5 +65,31 @@ namespace ManiaUI
             }
             return utility.GetResponse();
         }
+
+        internal JObject InsertActorProducer(int actProFlag, string name, string bioGraphy, string dateOfBirth, int sex)
+        {
+            utility = new Utility();
+            try
+            {
+                DataAccess dataAccess = new DataAccess(connection);
+                DataSet ds = dataAccess.InsertActorProducer(actProFlag, name, bioGraphy, dateOfBirth, sex);
+                if (ds == null)
+                {
+                    utility.CreateProperty("Success", "No data returned from database");
+                    utility.CreateProperty("Message", false);
+                }
+                else
+                {
+                    utility.ParseDataSet(ds);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Exception In Actors " + ex.ToString());
+            }
+            return utility.GetResponse();
+        }
+
+        
     }
 }
