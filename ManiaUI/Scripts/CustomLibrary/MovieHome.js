@@ -4,6 +4,7 @@ var actProFlag;
 
 $(document).ready(function () {
     GetActors();
+    GetProducers();
 });
 
 $('#btnActor-Producer').on('click', function () {
@@ -20,7 +21,7 @@ $('#btnActor-Producer').on('click', function () {
     } else if (bioGraphy.trim() == "") {
         alert("Biography cannot be empty.");
         return;
-    } 
+    }
 
     $.ajax({
         url: "/MovieHandler.ashx",
@@ -28,30 +29,35 @@ $('#btnActor-Producer').on('click', function () {
         async: false,
         dataType: "JSON",
         data: {
-            type: 3, name: name, sex: sex, dateOfBirth: dateOfBirth, bioGraphy: bioGraphy, actProFlag:actProFlag
+            type: 3, name: name, sex: sex, dateOfBirth: dateOfBirth, bioGraphy: bioGraphy, actProFlag: actProFlag
         },
         success: function (res) {
             if (res.Success == "True") {
                 alert(res.Success);
+                $('.close').click();
+
             } else {
                 alert(res.Success);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
+            console.log(errorThrown);
         }
     });
 });
-$('#btnActor').on('click', function () { 
+$('#btnActor').on('click', function () {
     actProFlag = 0;
+    $("#modalTitle").text('Add Actor');
+    clearInput();
 });
 $('#btnProducer').on('click', function () {
     actProFlag = 1;
+    $("#modalTitle").text('Add Producer');
+    clearInput();
 });
 
 function GetActors() {
-    var broadCastId = $(this).attr("broadCastId");
-   
+
     $.ajax({
         url: "/MovieHandler.ashx",
         type: "GET",
@@ -61,24 +67,56 @@ function GetActors() {
             type: 1
         },
         success: function (res) {
-            $("#tblFeedBack").html();
-            var feedBackData = "";
-            feedBackData += "<thead><th>Question</th><th>FeedBack</th></thead><tbody>";
+            $("#selectActors").html();
+            var optionElements = "";
             if (res.Success == "True") {
-                if (res.BroadCastTable.length > 0) {
-                    for (var i = 0; i < res.BroadCastTable.length; i++) {
-                        feedBackData += "<option actorId =";
-                        feedBackData +=  res.Actors[i].Id + "</td>";
-                        feedBackData += "<td>" + res.BroadCastTable[i].DigitsPressed + "</td>";
-                        feedBackData += "</tr>"; 
+                if (res.Actors.length > 0) {
+                    for (var i = 0; i < res.Actors.length; i++) {
+                        optionElements += "<option value =" + res.Actors[i].Id + " >" + res.Actors[i].Name + "</option>";
+                        
                     }
                 }
+                $("#selectActors").html(optionElements);
             } else {
-                feedBackData += "<tr><td colspan='4'>No Reports</td></tr>";
+                alert('No actor found.');
             }
-            feedBackData += "</tbody>";
-            $("#tblFeedBack").html(feedBackData);
-            $("#modalFeedBack").modal("show");
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                window.location.href = "/Login.aspx?message=Session expired";
+            } else if (jqXHR.status == 406) {
+                $("#modalPreviousSession").modal("show");
+            } else {
+                console.log(errorThrown);
+            }
+        }
+    });
+}
+function GetProducers() {
+
+    $.ajax({
+        url: "/MovieHandler.ashx",
+        type: "GET",
+        async: false,
+        dataType: "JSON",
+        data: {
+            type: 2
+        },
+        success: function (res) {
+            $("#selectProducer").html();
+            var optionElements = "";
+            if (res.Success == "True") {
+                if (res.Producers.length > 0) {
+                    for (var i = 0; i < res.Producers.length; i++) {
+                        optionElements += "<option value =" + res.Producers[i].Id + " >" + res.Producers[i].Name + "</option>";
+
+                    }
+                }
+                $("#selectProducer").html(optionElements);
+            } else {
+                alert('No Producer found.');
+            }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -93,7 +131,6 @@ function GetActors() {
     });
 }
 
-
 $(function () {
     $('#selectActors').multiselect({
         includeSelectAllOption: true
@@ -103,6 +140,7 @@ $('#datepicker').datepicker({
     weekStart: 1,
     daysOfWeekHighlighted: "6,0",
     autoclose: true,
+    format: 'mm/dd/yyyy',
     startDate: new Date(1900, 1, 1),
     endDate: new Date(),
     todayHighlight: true,
@@ -125,4 +163,10 @@ function fileValidation() {
             reader.readAsDataURL(fileInput.files[0]);
         }
     }
+}
+function clearInput() {
+    $('#inputActorProducer').val("");
+    //$('#selectSex').val("");
+    $('#datepicker').val("");
+    $('#textBio').val("");
 }

@@ -172,3 +172,6 @@ D:\Project\MovieMania\master\ManiaUI\bin\Newtonsoft.Json.pdb
 D:\Project\MovieMania\master\ManiaUI\bin\Newtonsoft.Json.xml
 D:\Project\MovieMania\master\ManiaUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\Project\MovieMania\master\ManiaUI\obj\Debug\ManiaUI.csproj.CopyComplete
+D:\Project\MovieMania\ManiaUI\bin\Newtonsoft.Json.dll
+D:\Project\MovieMania\ManiaUI\bin\Newtonsoft.Json.pdb
+D:\Project\MovieMania\ManiaUI\bin\Newtonsoft.Json.xml

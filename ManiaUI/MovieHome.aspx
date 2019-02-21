@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Producer</label>
-                <select class="form-control" id="exampleFormControlSelect1">
+                <select class="form-control" id="selectProducer">
                     <option>1900</option>
                     <option>1900</option>
 
@@ -116,14 +116,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Movie</h5>
+                    <h5 class="modal-title" id="modalTitle">Add Movie</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="inputActorProducer" placeholder="Movie Name">
+                        <input type="text" class="form-control" id="inputActorProducer" placeholder="Please Enter Name">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Sex</label>
@@ -133,6 +133,8 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="exampleFormControlSelect2">Date Of Birth</label>
+
                         <input data-date-format="dd/mm/yyyy" id="datepicker">
                     </div>
                     <div class="form-group">

@@ -12,3 +12,9 @@
 *.dll
 *.dll
 *.pdb
+*.dll
+*.pdb
+*.pdb
+*.cache
+*.dll
+*.pdb

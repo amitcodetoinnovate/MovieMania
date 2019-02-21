@@ -48,7 +48,7 @@ namespace ManiaUI
             try
             {
                 DataAccess dataAccess = new DataAccess(connection);
-                DataSet ds = dataAccess.GetActorsList();
+                DataSet ds = dataAccess.GetProducersList();
                 if (ds == null)
                 {
                     utility.CreateProperty("Success", "No data returned from database");
