@@ -41,6 +41,14 @@ namespace ManiaUI
                         resJObj = InsertActorProducer(context);
                         context.Response.Write(resJObj);
                         return;
+                    case 4:
+                        resJObj = ManageMovie(context);
+                        context.Response.Write(resJObj);
+                        return;
+                    case 5:
+                        resJObj = GetMovies(context);
+                        context.Response.Write(resJObj);
+                        return;
 
                 }
 
@@ -50,6 +58,37 @@ namespace ManiaUI
                 Console.WriteLine(ex.ToString());
 
             }
+        }
+
+        private JObject GetMovies(HttpContext context)
+        {
+            JObject responseJObj = new JObject();
+            try
+            {
+
+                Bussiness bussiness = new Bussiness();
+                responseJObj = bussiness.GetMovies();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return responseJObj;
+        }
+
+        private JObject ManageMovie(HttpContext context)
+        {
+            JObject responseJObj = new JObject();
+            try
+            {
+                Bussiness bussiness = new Bussiness();             
+                responseJObj = bussiness.ManageMovie(context);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return responseJObj;
         }
 
         private JObject InsertActorProducer(HttpContext context)

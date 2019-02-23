@@ -312,7 +312,7 @@ $(document).on('click', '.movieEdit', function () {
 $('[data-toggle="collapse"]').on("click", function (e) {
     if (collapseFlag) {
         $("#inputPoster, #inputMovie, #inputYearRelease, #textPlot, #selectActors, #selectProducer,#file").val("");
-        $('#selectActors').multiselect('refresh');
+        $('#selectActors').multiselect('select', []);
         $('#inputPoster').attr('src', '');
         $("#btnSubmit").html('Submit New Movie');
     }
